@@ -1,0 +1,3 @@
+put this in your website if you want to promote my site
+
+<a href="https://kholondra.org/" ><img src="https://kholondra.org/static/kho.png"></a>
