@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang=en>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.5">
+<meta name="description" content="Install void" />
+<meta name="keywords" content="void linux, voidlinux, tutorial">
+<meta name="author" content="Mat">
+<link rel="icon" type="image/png" href="../static/favicon.png">
+<title>Installing Void</title>
+<link rel="stylesheet" type="text/css" href="/tut/style.css">
+</head>
+
+<body>
+<div>
+
+	<a href="/tut/">Home</a>
+
+</div><br />
+
+<div>
+
+	<h2>Installing Void linux</h2><br><br>
+
+	<h3>Grab your old laptop</h3><br>
+
+	<p>Unless you want to install it on your main machine, I mean, you do you.</p><br><br>
+
+
+	<h3>BIOS Settings</h3><br>
+
+	<p>You can disable UEFI if you want though I noticed that my pc boots a bit faster with UEFI, so it might be the case for you.<br>Check if you have optimized settings for Windows that you can disable, depends on the motherboard.<br> If you are using a laptop you'll probably have to stick with UEFI.</p><br><br>
+
+
+	<h3>Glibc or Musl?</h3><br>
+	<p>Well Musl supports less proprietary softwares such as Nvidia drivers for a major example so keep that in <a href="https://docs.voidlinux.org/installation/musl.html#incompatible-software" target="_blank">mind</a>. If you want a fully Libre OS, any should be fine but, between you and me, choose the "right path" and get Musl.<br>Here are some documentation to illustrate my bias: <a href="https://www.etalabs.net/compare_libcs.html" target="_blank">here</a> and <a href="https://wiki.musl-libc.org/functional-differences-from-glibc.html" target="_blank">here</a></p><br><br>
+
+
+	<h3>Make a USB Flash Drive</h3><br>
+
+	<p>Go to the <a href="https://voidlinux.org/download/" target="_blank">Voidlinux</a> website and download an ISO file that suits you (I chose the xfce4 musl one)<br>flash the ISO on a USB drive with <a href="https://www.balena.io/etcher/" target="_blank">Balena etcher</a> (or anything you prefer) <br> If you choose the base version, bless your heart, you have the same steps to follow.</p><br><br>
+
+	<h3>Booting</h3><br>
+
+	<p>You checked BIOS settings so I assume you know how to boot to a USB drive but be careful your pc might detect your USB drive twice one with UEFI one without. Choose the one that suits you.<br>Then choose the first option on the bootloader that popped.<br>Login as root with "voidlinux" as the password. Check your disks first, do what you gotta do but once you're ready to install type:<br>
+	<code>void-installer</code><br>
+	This is actually pretty easy.<br></p><br><br>
+
+	<h3>The MENU</h3><br>
+
+	<center><img src="images/void_install.PNG"></center><br>
+	<p>That's it, just navigate each option and set them to your liking.<br>For the "source" choose "network" and for "UserAccount" keep the default groups unless you know what you're doing.<br>For the partitioning choose the same disk as the one you chose to install the bootloader in, and choose fdisk. Depending on wether you're doing a BIOS or UEFI install you:</p><br>
+
+	<div class="di1">
+
+    	<p>BIOS<br>press o to create a msdos partition table.<br>Make a new partition with a bootable flag of 128M Then you can use everything else in another partition so your whole system is in the same place.<br>Detailed steps here:</p><br><center><img src="images/msdosp.PNG"><br><p>Press p to see your partition table<br></p><img src="images/msdosp2.PNG"></center><br>
+    	<p>If it looks like that you're all set. Then press w to confirm the changes.</p>
+
+	</div><br><br>
+
+	<div class="di2">
+
+    	<p>UEFI<br>Press g to create a gtp partition table<br>Make a new partition of 128M and change its type to 1 aka EFI partition. Then you can use everything else in another partition so your whole system is in the same place.<br>Detailed steps here:</p><br><center><img src="images/gptp.PNG"><br><p>Press p to see your partition table<br></p><img src="images/gptp2.PNG"></center><br><p>If it looks like that you're all set. Then type w to confirm the changes.</p>
+
+	</div><br><br>	
+
+	<p>As for the filesystems it goes as follows:</p>
+
+	<div class="di1">
+
+    	<p>BIOS<br>Make /dev/sdX1 as an ext4 filesystem and the mount point <code>/boot</code><br>The rest as another ext4 filesystem with <code>/</code> as the mount point.</p>
+
+	</div><br><br>
+
+	<div class="di2">
+
+    	<p>UEFI<br>Make /dev/sdX1 as an FAT32 filesystem and the mount point <code>/boot/efi</code><br>The rest as another ext4 filesystem with <code>/</code> as the mount point.</p>
+
+	</div><br><br>
+
+	<p>Now hit install and let it run everything for you<br><br></p>
+	<center><img src="images/void_confirm.PNG"></center><br>
+	<p>This is what the confirmation dialogue should look like if you followed this guide with a BIOS installation</p><br><br>
+
+	<h3>Rebooting</h3><br>
+
+	<p>Login and update the system (it's probably already done)<br><code>xbps-install -Su</code><br>updating stops services that undergo an update so you gotta restart them yourself, well not anymore they made a command to restart what was stopped <code>xcheckrestart</code></p><br><br>
+
+	<p>Check the <a href="https://docs.voidlinux.org/" target="_blank">void linux documentation</a>, it's really good.</p><br><br>
+
+	<p>Now you should have a very cool minimal distro to have fun with.</p><br><br><br><br><br><br>
+
+
+<center><img src="images/muta1.png"></center>
+
+</div>
+</body>
+</html>
